@@ -19,37 +19,21 @@ function Counter() {
 
   const modDate = `${day}.${month}.${year}`;
 
-  function handleRange(val) {
-    return setStep(Number(val));
-  }
-
-  function handleReset() {
-    setStep(1);
-    setCount(0);
-    return;
+  function handleStepMinus() {
+    if (step > 1) setStep((s) => s - 1);
   }
 
   return (
     <div className="container">
       <div>
-        <input
-          type="range"
-          min="0"
-          max="10"
-          value={step}
-          onChange={(e) => handleRange(e.target.value)}
-        />
-
-        <span> {step}</span>
+        <button onClick={() => handleStepMinus()}> - </button>
+        <span>Step: {step}</span>
+        <button onClick={() => setStep((s) => s + 1)}> + </button>
       </div>
 
       <div>
         <button onClick={() => setCount((c) => c - step)}> - </button>
-        <input
-          type="text"
-          value={count}
-          onChange={(e) => setCount(Number(e.target.value))}
-        />
+        <span>Count: {count}</span>
         <button onClick={() => setCount((c) => c + step)}> + </button>
       </div>
       <p>
@@ -60,11 +44,6 @@ function Counter() {
         ${count >= 0 ? "from today is" : " ago was"} `}
         {modDate}
       </p>
-      {count !== 0 || step !== 1 ? (
-        <button onClick={() => handleReset()}>Reset</button>
-      ) : (
-        ""
-      )}
     </div>
   );
 }
